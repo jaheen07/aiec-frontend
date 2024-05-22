@@ -9,6 +9,20 @@ const AddPromo = () => {
   const { register, handleSubmit, reset } = useForm();
   const [courses] = useCourses();
 
+  const showrib = async(data) => {
+    const showonrib = {show_on_rib:"yes"};
+    const apiResponse = await fetch(
+      `https://localhost:5000/updatepromo/${data._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(showonrib),
+      }
+    );
+    
+  }
   
   const onSubmit = async (data) => {
     try {
@@ -177,7 +191,8 @@ const AddPromo = () => {
                 <td>{promo.discount}</td>
                 <td>{promo.course_name}</td>
                 <td className="text-lg text-center">
-                  {promo.show_on_rib}
+                  <button className="btn-add" onClick={()=> showrib(promo)}>Yes</button>
+                  <button>reset</button>
                 </td>
                 
                 <td>
